@@ -1,0 +1,220 @@
+{
+    "university": "UNICAM",
+    "courses": [
+        {
+            "code": "SST0068",
+            "title": "ARCHITETTURA DEGLI ELABORATORI",
+            "credits": 12,
+            "contents": [
+                "Logica digitale e sistemi digitali",
+                "Rappresentazione dei dati a livello macchina",
+                "Organizzazione della macchina a livello di linguaggio macchina",
+                "Organizzazione e architettura del sistema di memoria",
+                "Valutazione e prestazioni"
+            ]
+        },
+        {
+            "code": "ST0856",
+            "title": "BUSINESS E MANAGEMENT NELL'INFORMATION TECHNOLOGY",
+            "credits": 6,
+            "contents": [
+                "L'impresa e il suo ambiente",
+                "Il comportamento dell'impresa: modelli",
+                "Il management della produzione",
+                "Il marketing",
+                "La struttura organizzativa",
+                "La strategia: quadro introduttivo",
+                "Innovazione e vantaggio competitivo",
+                "Funzione finanziaria"
+            ]
+        },
+        {
+            "code": "ST0253",
+            "title": "CALCOLO DELLE PROBABILITA' E STATISTICA",
+            "credits": 6,
+            "contents": [
+                "Assiomi della Probabilità",
+                "Probabilità condizionata ed indipendenza",
+                "Variabili aleatorie discrete e continue",
+                "Teoremi limite ed applicazioni",
+                "Catene di Markov",
+                "Statistica descrittiva",
+                "Intervalli di fiducia",
+                "Test statistici"
+            ]
+        },
+        {
+            "code": "ST0247",
+            "title": "FONDAMENTI DI INFORMATICA",
+            "credits": 6,
+            "contents": [
+                "La computabilità da Leibniz ai giorni nostri",
+                "Macchine di Turing",
+                "Problemi senza soluzione",
+                "Linguaggi decidibili e semidecidibili",
+                "Generare i linguaggi",
+                "La gerarchia di Chomsky"
+            ]
+        },
+        {
+            "code": "STING01",
+            "title": "INGLESE - LIVELLO B1",
+            "credits": 6,
+            "contents": []
+        },
+        {
+            "code": "ST0821",
+            "title": "MATEMATICA GENERALE (LOGICA MATEMATICA 6 CFU + MATEMATICA DISCRETA 6 CFU)",
+            "credits": 12,
+            "contents": [
+                "Metodo dimostrativo",
+                "Insiemi e loro proprietà",
+                "Numeri naturali, interi, razionali e reali",
+                "Logica preposizionale e dei predicati",
+                "Vettori e matrici",
+                "Determinanti e sistemi lineari",
+                "Introduzione alla statistica",
+                "Strutture algebriche"
+            ]
+        },
+        {
+            "code": "SST0003",
+            "title": "OBBLIGHI FORMATIVI AGGIUNTIVI",
+            "credits": 0,
+            "contents": []
+        },
+        {
+            "code": "ST0851",
+            "title": "PROGRAMMAZIONE",
+            "credits": 12,
+            "contents": []
+        },
+        {
+            "code": "ST0853",
+            "title": "ALGORITMI E STRUTTURE DATI",
+            "credits": 12,
+            "contents": [
+                "Il ruolo degli algoritmi nel processo di problem solving",
+                "Analisi asintotica di complessità",
+                "Strategie di problem solving",
+                "Tipi di dato astratti e loro implementazione",
+                "Algoritmi di ordinamento",
+                "Alberi e grafi",
+                "Pattern matching e algoritmi su stringhe"
+            ]
+        },
+        {
+            "code": "ST0266",
+            "title": "BASI DI DATI",
+            "credits": 12,
+            "contents": [
+                "Basi di dati relazionali: modello e linguaggi",
+                "Progettazione di basi di dati",
+                "Metodologie e modelli per il progetto",
+                "Normalizzazione"
+            ]
+        },
+        {
+            "code": "SST0069",
+            "title": "INTERNET, RETI E SICUREZZA",
+            "credits": 12,
+            "contents": [
+                "Livelli ISO/OSI",
+                "Protocolli di rete (HTTP, FTP, SMTP, DNS, TCP, UDP, IP)",
+                "Sicurezza informatica",
+                "Virtualizzazione",
+                "Network sniffing e port scanning",
+                "Firewall e vulnerability exploitation"
+            ]
+        },
+        {
+            "code": "ST1419",
+            "title": "METODOLOGIE DI PROGRAMMAZIONE",
+            "credits": 12,
+            "contents": [
+                "Programmazione orientata agli oggetti in Java",
+                "Programmazione funzionale",
+                "Programmazione parallela basata su Stream"
+            ]
+        },
+        {
+            "code": "ST0302",
+            "title": "RICERCA OPERATIVA",
+            "credits": 6,
+            "contents": [
+                "Programmazione Lineare e Programmazione Intera",
+                "Algoritmo del Simplesso",
+                "Teoria della dualità",
+                "Problemi classici di PLI",
+                "Branch & Bound"
+            ]
+        },
+        {
+            "code": "ST0830",
+            "title": "SISTEMI OPERATIVI",
+            "credits": 6,
+            "contents": [
+                "Introduzione ai sistemi operativi",
+                "Processi e sincronizzazione",
+                "Gestione della memoria",
+                "Memoria virtuale",
+                "File system"
+            ]
+        },
+        {
+            "code": "ST0496",
+            "title": "INGEGNERIA DEL SOFTWARE",
+            "credits": 12,
+            "contents": [
+                "Processi di sviluppo",
+                "UML e diagrammi",
+                "Analisi e progettazione con UP ed UML"
+            ]
+        },
+        {
+            "code": "ST1344",
+            "title": "LINGUAGGI E COMPILATORI",
+            "credits": 6,
+            "contents": [
+                "Architettura dei compilatori",
+                "Analisi lessicale e sintattica",
+                "Generazione di codice intermedio"
+            ]
+        },
+        {
+            "code": "ST1420",
+            "title": "PARADIGMI AVANZATI DI PROGRAMMAZIONE",
+            "credits": 12,
+            "contents": [
+                "Chiusura di funzioni",
+                "Programmazione funzionale avanzata",
+                "Lambda calcolo",
+                "Linguaggi LISP, LUA e Haskell"
+            ]
+        },
+        {
+            "code": "SST0002",
+            "title": "PROVA FINALE",
+            "credits": 6,
+            "contents": []
+        },
+        {
+            "code": "SST0006",
+            "title": "STAGE ESTERNO",
+            "credits": 12,
+            "contents": []
+        },
+        {
+            "code": "SST0007",
+            "title": "STAGE ESTERO",
+            "credits": 12,
+            "contents": []
+        },
+        {
+            "code": "SST0005",
+            "title": "STAGE INTERNO",
+            "credits": 12,
+            "contents": []
+        }
+    ]
+}
