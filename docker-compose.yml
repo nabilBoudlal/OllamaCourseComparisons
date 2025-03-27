@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  pgvector:
+    image: ankane/pgvector
+    environment:
+      POSTGRES_PASSWORD: unicam123
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # Persists data even if container restarts
+volumes:
+  pgdata:

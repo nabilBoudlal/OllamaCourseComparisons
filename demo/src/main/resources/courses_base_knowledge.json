@@ -1,0 +1,1424 @@
+{
+  "courses": [
+    {
+      "code": "MAT101",
+      "title": "Analisi Matematica I",
+      "credits": 9,
+      "contents": [
+        "Calcolo differenziale e integrale",
+        "Serie numeriche",
+        "Equazioni differenziali"
+      ],
+      "university": "Università di Pisa"
+    },
+    {
+      "code": "MAT102",
+      "title": "Geometria e Algebra Lineare",
+      "credits": 6,
+      "contents": [
+        "Spazi vettoriali",
+        "Matrici e determinanti",
+        "Sistemi lineari"
+      ],
+      "university": "Università di Padova"
+    },
+    {
+      "code": "MAT103",
+      "title": "Probabilità e Statistica",
+      "credits": 6,
+      "contents": [
+        "Teoria delle probabilità",
+        "Variabili aleatorie",
+        "Inferenza statistica"
+      ],
+      "university": "Università di Bologna"
+    },
+    {
+      "code": "PHYS101",
+      "title": "Fisica Generale I",
+      "credits": 9,
+      "contents": [
+        "Meccanica classica",
+        "Termodinamica",
+        "Onde e oscillazioni"
+      ],
+      "university": "Politecnico di Milano"
+    },
+    {
+      "code": "PHYS102",
+      "title": "Fisica Generale II",
+      "credits": 6,
+      "contents": [
+        "Elettromagnetismo",
+        "Ottica",
+        "Fisica moderna"
+      ],
+      "university": "Politecnico di Torino"
+    },
+    {
+      "code": "CS101",
+      "title": "Programmazione I",
+      "credits": 9,
+      "contents": [
+        "Fondamenti di programmazione",
+        "Strutture dati",
+        "Algoritmi di base"
+      ],
+      "university": "Università di Roma La Sapienza"
+    },
+    {
+      "code": "CS102",
+      "title": "Programmazione II",
+      "credits": 6,
+      "contents": [
+        "Programmazione orientata agli oggetti",
+        "Design patterns",
+        "Gestione delle eccezioni"
+      ],
+      "university": "Università di Firenze"
+    },
+    {
+      "code": "CS103",
+      "title": "Sistemi Operativi",
+      "credits": 6,
+      "contents": [
+        "Gestione dei processi",
+        "Gestione della memoria",
+        "File system"
+      ],
+      "university": "Università di Napoli Federico II"
+    },
+    {
+      "code": "CS104",
+      "title": "Basi di Dati",
+      "credits": 9,
+      "contents": [
+        "Modelli di dati",
+        "SQL",
+        "Progettazione di database"
+      ],
+      "university": "Università di Milano"
+    },
+    {
+      "code": "CS105",
+      "title": "Reti di Calcolatori",
+      "credits": 6,
+      "contents": [
+        "Architettura delle reti",
+        "Protocolli di comunicazione",
+        "Sicurezza delle reti"
+      ],
+      "university": "Università di Catania"
+    },
+    {
+      "code": "EE101",
+      "title": "Fondamenti di Elettronica",
+      "credits": 9,
+      "contents": [
+        "Circuiti elettrici",
+        "Componenti elettronici",
+        "Analisi dei circuiti"
+      ],
+      "university": "Politecnico di Bari"
+    },
+    {
+      "code": "EE102",
+      "title": "Elettronica Digitale",
+      "credits": 6,
+      "contents": [
+        "Logica combinatoria",
+        "Logica sequenziale",
+        "Progettazione di circuiti digitali"
+      ],
+      "university": "Università di Genova"
+    },
+    {
+      "code": "EE103",
+      "title": "Sistemi Elettronici",
+      "credits": 6,
+      "contents": [
+        "Sistemi embedded",
+        "Microcontrollori",
+        "Interfacciamento hardware-software"
+      ],
+      "university": "Università di Trieste"
+    },
+    {
+      "code": "EE104",
+      "title": "Telecomunicazioni",
+      "credits": 6,
+      "contents": [
+        "Teoria dei segnali",
+        "Modulazione",
+        "Sistemi di comunicazione"
+      ],
+      "university": "Università di Palermo"
+    },
+    {
+      "code": "EE105",
+      "title": "Controlli Automatici",
+      "credits": 6,
+      "contents": [
+        "Teoria dei sistemi",
+        "Stabilità",
+        "Progettazione di controllori"
+      ],
+      "university": "Università di Pavia"
+    },
+    {
+      "code": "CS106",
+      "title": "Ingegneria del Software",
+      "credits": 6,
+      "contents": [
+        "Ciclo di vita del software",
+        "Metodologie di sviluppo",
+        "Testing e manutenzione"
+      ],
+      "university": "Università di Salerno"
+    },
+    {
+      "code": "CS107",
+      "title": "Intelligenza Artificiale",
+      "credits": 6,
+      "contents": [
+        "Apprendimento automatico",
+        "Reti neurali",
+        "Logica fuzzy"
+      ],
+      "university": "Università di Verona"
+    },
+    {
+      "code": "CS108",
+      "title": "Sicurezza Informatica",
+      "credits": 6,
+      "contents": [
+        "Crittografia",
+        "Sicurezza delle reti",
+        "Analisi delle vulnerabilità"
+      ],
+      "university": "Università di Udine"
+    },
+    {
+      "code": "CS109",
+      "title": "Algoritmi e Strutture Dati",
+      "credits": 9,
+      "contents": [
+        "Algoritmi di ordinamento",
+        "Strutture dati avanzate",
+        "Analisi della complessità"
+      ],
+      "university": "Università di Modena e Reggio Emilia"
+    },
+    {
+      "code": "CS110",
+      "title": "Interazione Uomo-Macchina",
+      "credits": 6,
+      "contents": [
+        "Design dell'interfaccia",
+        "Usabilità",
+        "Progettazione centrata sull'utente"
+      ],
+      "university": "Università di Perugia"
+    },
+        {
+          "code": "INF101",
+          "title": "Programmazione I",
+          "credits": 9,
+          "contents": [
+            "Fondamenti di programmazione",
+            "Strutture di controllo",
+            "Tipi di dato",
+            "Funzioni e moduli"
+          ],
+          "university": "Università di Bologna"
+        },
+        {
+          "code": "INF102",
+          "title": "Programmazione II",
+          "credits": 9,
+          "contents": [
+            "Programmazione orientata agli oggetti",
+            "Ereditarietà e polimorfismo",
+            "Gestione delle eccezioni",
+            "Input/Output"
+          ],
+          "university": "Sapienza Università di Roma"
+        },
+        {
+          "code": "INF103",
+          "title": "Algoritmi e Strutture Dati",
+          "credits": 9,
+          "contents": [
+            "Liste, code e pile",
+            "Alberi e grafi",
+            "Algoritmi di ordinamento e ricerca",
+            "Analisi della complessità"
+          ],
+          "university": "Università degli Studi di Milano"
+        },
+        {
+          "code": "INF104",
+          "title": "Basi di Dati",
+          "credits": 9,
+          "contents": [
+            "Modello relazionale",
+            "SQL",
+            "Progettazione concettuale e logica",
+            "Normalizzazione"
+          ],
+          "university": "Università degli Studi di Torino"
+        },
+        {
+          "code": "INF105",
+          "title": "Sistemi Operativi",
+          "credits": 9,
+          "contents": [
+            "Gestione dei processi",
+            "Gestione della memoria",
+            "File system",
+            "Sicurezza e protezione"
+          ],
+          "university": "Università di Pisa"
+        },
+        {
+          "code": "INF106",
+          "title": "Reti di Calcolatori",
+          "credits": 9,
+          "contents": [
+            "Modello OSI",
+            "Protocolli TCP/IP",
+            "Routing e switching",
+            "Sicurezza delle reti"
+          ],
+          "university": "Università degli Studi di Padova"
+        },
+        {
+          "code": "INF107",
+          "title": "Ingegneria del Software",
+          "credits": 9,
+          "contents": [
+            "Ciclo di vita del software",
+            "Metodologie di sviluppo",
+            "Testing e manutenzione",
+            "Gestione dei requisiti"
+          ],
+          "university": "Università degli Studi di Napoli Federico II"
+        },
+        {
+          "code": "INF108",
+          "title": "Intelligenza Artificiale",
+          "credits": 9,
+          "contents": [
+            "Rappresentazione della conoscenza",
+            "Algoritmi di ricerca",
+            "Apprendimento automatico",
+            "Reti neurali"
+          ],
+          "university": "Università degli Studi di Bari"
+        },
+        {
+          "code": "INF109",
+          "title": "Sicurezza Informatica",
+          "credits": 9,
+          "contents": [
+            "Crittografia",
+            "Autenticazione",
+            "Sicurezza delle applicazioni web",
+            "Analisi delle vulnerabilità"
+          ],
+          "university": "Università degli Studi di Catania"
+        },
+        {
+          "code": "INF110",
+          "title": "Interazione Uomo-Macchina",
+          "credits": 6,
+          "contents": [
+            "Principi di design dell'interfaccia",
+            "Usabilità",
+            "Prototipazione",
+            "Valutazione dell'interfaccia"
+          ],
+          "university": "Università degli Studi di Genova"
+        },
+        {
+          "code": "INF111",
+          "title": "Sistemi Distribuiti",
+          "credits": 6,
+          "contents": [
+            "Architetture distribuite",
+            "Comunicazione tra processi",
+            "Sincronizzazione",
+            "Tolleranza ai guasti"
+          ],
+          "university": "Università degli Studi di Firenze"
+        },
+        {
+          "code": "INF112",
+          "title": "Calcolo Parallelo",
+          "credits": 6,
+          "contents": [
+            "Modelli di programmazione parallela",
+            "Algoritmi paralleli",
+            "Prestazioni e scalabilità",
+            "Strumenti di sviluppo"
+          ],
+          "university": "Università degli Studi di Trento"
+        },
+        {
+          "code": "INF113",
+          "title": "Linguaggi Formali e Compilatori",
+          "credits": 6,
+          "contents": [
+            "Grammatiche e automi",
+            "Analisi lessicale e sintattica",
+            "Ottimizzazione del codice",
+            "Generazione del codice"
+          ],
+          "university": "Università degli Studi di Pavia"
+        },
+        {
+          "code": "INF114",
+          "title": "Sistemi Embedded",
+          "credits": 6,
+          "contents": [
+            "Architetture hardware",
+            "Programmazione di basso livello",
+            "Interfacciamento hardware-software",
+            "Applicazioni real-time"
+          ],
+          "university": "Università degli Studi di Salerno"
+        },
+        {
+          "code": "INF115",
+          "title": "Robotica",
+          "credits": 6,
+          "contents": [
+            "Cinematica e dinamica dei robot",
+            "Pianificazione del movimento",
+            "Controllo dei robot",
+            "Percezione e sensori"
+          ],
+          "university": "Università degli Studi di Verona"
+        },
+        {
+          "code": "INF116",
+          "title": "Elaborazione delle Immagini",
+          "credits": 6,
+          "contents": [
+            "Filtraggio e miglioramento",
+            "Segmentazione",
+            "Riconoscimento di pattern",
+            "Visione artificiale"
+          ],
+          "university": "Università degli Studi di Udine"
+        },
+        {
+          "code": "INF117",
+          "title": "Sistemi Informativi",
+          "credits": 6,
+          "contents": [
+            "Architettura dei sistemi informativi",
+            "Integrazione dei dati",
+            "Business intelligence",
+            "Gestione dei processi aziendali"
+          ],
+          "university": "Università della Calabria"
+        },
+        {
+          "code": "INF118",
+          "title": "Teoria dell'Informazione",
+          "credits": 6,
+          "contents": [
+            "Entropia e misura dell'informazione",
+            "Codifica delle sorgenti",
+            "Canali di comunicazione",
+            "Teoremi fondamentali"
+          ],
+          "university": "Università degli Studi di Camerino"
+        },
+        {
+          "code": "INF119",
+          "title": "Bioinformatica",
+          "credits": 6,
+          "contents": [
+            "Analisi di sequenze genomiche",
+            "Allineamento di sequenze",
+            "Modelli predittivi in biologia",
+            "Strumenti computazionali per la biologia"
+          ],
+          "university": "Università degli Studi di Perugia"
+        },
+        {
+          "code": "INF120",
+          "title": "Cloud Computing",
+          "credits": 6,
+          "contents": [
+            "Virtualizzazione",
+            "Architetture cloud (IaaS, PaaS, SaaS)",
+            "Serverless computing",
+            "Sicurezza nel cloud"
+          ],
+          "university": "Università degli Studi di Parma"
+        },
+        {
+          "code": "INF121",
+          "title": "Programmazione Web",
+          "credits": 6,
+          "contents": [
+            "HTML, CSS, JavaScript",
+            "Framework frontend (React, Angular)",
+            "Backend development (Node.js, Django)",
+            "API RESTful"
+          ],
+          "university": "Politecnico di Milano"
+        },
+        {
+          "code": "INF122",
+          "title": "Machine Learning",
+          "credits": 9,
+          "contents": [
+            "Algoritmi supervisionati e non supervisionati",
+            "Reti neurali profonde",
+            "Validazione dei modelli",
+            "Applicazioni pratiche"
+          ],
+          "university": "Politecnico di Torino"
+        },
+        {
+          "code": "INF123",
+          "title": "Blockchain e Criptovalute",
+          "credits": 6,
+          "contents": [
+            "Tecnologia blockchain",
+            "Smart contracts",
+            "Criptoeconomia",
+            "Sicurezza e attacchi"
+          ],
+          "university": "Università degli Studi di Modena e Reggio Emilia"
+        },
+        {
+          "code": "INF124",
+          "title": "Sistemi Real-Time",
+          "credits": 6,
+          "contents": [
+            "Scheduling real-time",
+            "Kernel real-time",
+            "Progettazione di sistemi critici",
+            "Verifica temporale"
+          ],
+          "university": "Università degli Studi di Brescia"
+        },
+        {
+          "code": "INF125",
+          "title": "Computer Graphics",
+          "credits": 6,
+          "contents": [
+            "Rendering 3D",
+            "Shaders e illuminazione",
+            "OpenGL/Vulkan",
+            "Animazione digitale"
+          ],
+          "university": "Università degli Studi di Trieste"
+        },
+        {
+          "code": "INF126",
+          "title": "Sistemi Operativi Avanzati",
+          "credits": 9,
+          "contents": [
+            "Microkernel vs monolitici",
+            "Gestione avanzata della memoria",
+            "Scheduling avanzato",
+            "Virtualizzazione"
+          ],
+          "university": "Università degli Studi di Bergamo"
+        },
+        {
+          "code": "INF127",
+          "title": "Quantum Computing",
+          "credits": 6,
+          "contents": [
+            "Qubit e porte quantistiche",
+            "Algoritmi quantistici (Shor, Grover)",
+            "Simulatori quantistici",
+            "Applicazioni future"
+          ],
+          "university": "Università degli Studi di Siena"
+        },
+        {
+          "code": "INF128",
+          "title": "Big Data Analytics",
+          "credits": 9,
+          "contents": [
+            "Hadoop e Spark",
+            "NoSQL databases",
+            "Data mining su larga scala",
+            "Visualizzazione dei dati"
+          ],
+          "university": "Università degli Studi di Palermo"
+        },
+        {
+          "code": "INF129",
+          "title": "IoT (Internet of Things)",
+          "credits": 6,
+          "contents": [
+            "Protocolli IoT (MQTT, CoAP)",
+            "Sensori e attuatori",
+            "Edge computing",
+            "Sicurezza IoT"
+          ],
+          "university": "Università degli Studi di Cagliari"
+        },
+        {
+          "code": "INF130",
+          "title": "Natural Language Processing (NLP)",
+          "credits": 6,
+          "contents": [
+            "Elaborazione del linguaggio",
+            "Modelli linguistici (BERT, GPT)",
+            "Traduzione automatica",
+            "Chatbot e assistenti virtuali"
+          ],
+          "university": "Università Bocconi (Milano)"
+        },
+        {
+          "code": "INF131",
+          "title": "DevOps e Continuous Integration",
+          "credits": 6,
+          "contents": [
+            "Docker e Kubernetes",
+            "CI/CD pipelines",
+            "Infrastructure as Code (IaC)",
+            "Monitoraggio e logging"
+          ],
+          "university": "Università Cattolica del Sacro Cuore"
+        },
+        {
+          "code": "INF132",
+          "title": "Game Development",
+          "credits": 6,
+          "contents": [
+            "Unity/Unreal Engine",
+            "Game physics",
+            "AI per videogiochi",
+            "Monetizzazione e publishing"
+          ],
+          "university": "Università LUISS Guido Carli (Roma)"
+        },
+        {
+          "code": "INF133",
+          "title": "Ethical Hacking",
+          "credits": 6,
+          "contents": [
+            "Penetration testing",
+            "Metasploit framework",
+            "Forensics digitale",
+            "Bug bounty programs"
+          ],
+          "university": "Università Vita-Salute San Raffaele (Milano)"
+        },
+        {
+          "code": "INF134",
+          "title": "Computational Mathematics",
+          "credits": 6,
+          "contents": [
+            "Metodi numerici",
+            "Ottimizzazione matematica",
+            "Simulazioni Monte Carlo",
+            "Algebra lineare computazionale"
+          ],
+          "university": "Politecnico di Bari"
+        },
+        {
+          "code": "INF135",
+          "title": "Autonomous Systems",
+          "credits": 6,
+          "contents": [
+            "Droni e veicoli autonomi",
+            "SLAM (Simultaneous Localization and Mapping)",
+            "Decision-making algorithms",
+            "Regolamentazione e etica"
+          ],
+          "university": "Università Telematica Internazionale Uninettuno"
+        },
+        {
+          "code": "INF136",
+          "title": "Software Defined Networking (SDN)",
+          "credits": 6,
+          "contents": [
+            "Architettura SDN",
+            "OpenFlow protocol",
+            "Network virtualization",
+            "Security in SDN"
+          ],
+          "university": "Università Telematica Pegaso"
+        },
+        {
+          "code": "INF137",
+          "title": "Advanced Database Systems",
+          "credits": 9,
+          "contents": [
+            "Database NoSQL (MongoDB, Cassandra)",
+            "NewSQL databases",
+            "Distributed transactions",
+            "Data replication"
+          ],
+          "university": "Università degli Studi di Pisa"
+        },
+        {
+          "code": "INF138",
+          "title": "Computer Vision",
+          "credits": 6,
+          "contents": [
+            "Feature extraction",
+            "Object detection (YOLO, Faster R-CNN)",
+            "Image segmentation",
+            "3D reconstruction"
+          ],
+          "university": "Università degli Studi di Padova"
+        },
+        {
+          "code": "INF139",
+          "title": "Advanced Algorithms",
+          "credits": 9,
+          "contents": [
+            "Randomized algorithms",
+            "Approximation algorithms",
+            "Parallel algorithms",
+            "Complexity theory"
+          ],
+          "university": "Università degli Studi di Milano"
+        },
+        {
+          "code": "INF140",
+          "title": "Cybersecurity Law",
+          "credits": 6,
+          "contents": [
+            "GDPR e privacy laws",
+            "Cybercrime legislation",
+            "Digital forensics law",
+            "Ethical implications"
+          ],
+          "university": "Sapienza Università di Roma"
+        },
+        {
+          "code": "INF141",
+          "title": "Embedded Linux",
+          "credits": 6,
+          "contents": [
+            "Linux kernel customization",
+            "Device drivers",
+            "Real-time Linux (RT-Preempt)",
+            "Cross-compilation"
+          ],
+          "university": "Politecnico di Torino"
+        },
+        {
+          "code": "INF142",
+          "title": "Advanced Networking",
+          "credits": 9,
+          "contents": [
+            "MPLS and VPNs",
+            "Software-defined WAN",
+            "5G and beyond",
+            "Network function virtualization"
+          ],
+          "university": "Università degli Studi di Napoli Federico II"
+        },
+        {
+          "code": "INF143",
+          "title": "Deep Learning",
+          "credits": 9,
+          "contents": [
+            "Convolutional Neural Networks (CNNs)",
+            "Recurrent Neural Networks (RNNs)",
+            "Transformers",
+            "Generative Adversarial Networks (GANs)"
+          ],
+          "university": "Università degli Studi di Bari"
+        },
+        {
+          "code": "INF144",
+          "title": "Formal Methods in Software Engineering",
+          "credits": 6,
+          "contents": [
+            "Model checking",
+            "Theorem proving",
+            "Temporal logic",
+            "Specification languages"
+          ],
+          "university": "Università degli Studi di Catania"
+        },
+        {
+          "code": "INF145",
+          "title": "Augmented Reality (AR) & Virtual Reality (VR)",
+          "credits": 6,
+          "contents": [
+            "Unity3D for AR/VR",
+            "3D modeling for VR",
+            "Haptic feedback",
+            "User interaction in VR"
+          ],
+          "university": "Università degli Studi di Genova"
+        },
+        {
+          "code": "INF146",
+          "title": "Distributed Ledger Technologies",
+          "credits": 6,
+          "contents": [
+            "Beyond blockchain (DAGs, Hashgraph)",
+            "Consensus algorithms (PoW, PoS, BFT)",
+            "Decentralized identity",
+            "Enterprise DLT"
+          ],
+          "university": "Università degli Studi di Firenze"
+        },
+        {
+          "code": "INF147",
+          "title": "Computational Biology",
+          "credits": 6,
+          "contents": [
+            "Protein folding prediction",
+            "Phylogenetic trees",
+            "Systems biology",
+            "Drug discovery algorithms"
+          ],
+          "university": "Università degli Studi di Trento"
+        },
+        {
+          "code": "INF148",
+          "title": "Advanced Operating Systems",
+          "credits": 9,
+          "contents": [
+            "Microkernel architectures",
+            "Exokernels",
+            "Formal verification of OS",
+            "Security kernels"
+          ],
+          "university": "Università degli Studi di Pavia"
+        },
+        {
+          "code": "INF149",
+          "title": "High-Performance Computing (HPC)",
+          "credits": 9,
+          "contents": [
+            "Parallel programming models",
+            "GPU computing (CUDA, OpenCL)",
+            "Supercomputing architectures",
+            "Performance optimization"
+          ],
+          "university": "Università degli Studi di Salerno"
+        },
+        {
+          "code": "INF150",
+          "title": "Advanced Cybersecurity",
+          "credits": 9,
+          "contents": [
+            "Zero-trust architecture",
+            "Advanced persistent threats (APTs)",
+            "Threat intelligence",
+            "Incident response"
+          ],
+          "university": "Università degli Studi di Verona"
+        },
+        {
+          "code": "INF151",
+          "title": "Semantic Web",
+          "credits": 6,
+          "contents": [
+            "RDF and SPARQL",
+            "Ontologies (OWL)",
+            "Knowledge graphs",
+            "Linked data"
+          ],
+          "university": "Università degli Studi di Udine"
+        },
+        {
+          "code": "INF152",
+          "title": "Advanced Compiler Design",
+          "credits": 9,
+          "contents": [
+            "Just-in-time compilation",
+            "Garbage collection algorithms",
+            "Optimizing compilers",
+            "Domain-specific languages"
+          ],
+          "university": "Università della Calabria"
+        },
+        {
+          "code": "INF153",
+          "title": "Wireless Sensor Networks",
+          "credits": 6,
+          "contents": [
+            "Energy-efficient protocols",
+            "Data aggregation",
+            "Localization techniques",
+            "Security in WSNs"
+          ],
+          "university": "Università degli Studi di Camerino"
+        },
+        {
+          "code": "INF154",
+          "title": "Formal Languages and Automata Theory",
+          "credits": 6,
+          "contents": [
+            "Regular and context-free languages",
+            "Pushdown automata",
+            "Turing machines",
+            "Decidability and complexity"
+          ],
+          "university": "Università degli Studi di Perugia"
+        },
+        {
+          "code": "INF155",
+          "title": "Advanced Web Security",
+          "credits": 6,
+          "contents": [
+            "OWASP Top 10",
+            "Browser security models",
+            "Web application firewalls",
+            "Secure coding practices"
+          ],
+          "university": "Università degli Studi di Parma"
+        },
+        {
+          "code": "INF156",
+          "title": "Computational Social Science",
+          "credits": 6,
+          "contents": [
+            "Social network analysis",
+            "Agent-based modeling",
+            "Opinion dynamics",
+            "Ethics in CSS"
+          ],
+          "university": "Politecnico di Milano"
+        },
+        {
+          "code": "INF157",
+          "title": "Advanced Robotics",
+          "credits": 9,
+          "contents": [
+            "Multi-robot systems",
+            "Swarm robotics",
+            "Human-robot interaction",
+            "Robotic vision"
+          ],
+          "university": "Politecnico di Torino"
+        },
+        {
+          "code": "INF158",
+          "title": "Advanced Machine Learning",
+          "credits": 9,
+          "contents": [
+            "Reinforcement learning",
+            "Meta-learning",
+            "Federated learning",
+            "Explainable AI"
+          ],
+          "university": "Università degli Studi di Modena e Reggio Emilia"
+        },
+        {
+          "code": "INF159",
+          "title": "Quantum Algorithms",
+          "credits": 6,
+          "contents": [
+            "Quantum Fourier transform",
+            "Quantum error correction",
+            "Quantum machine learning",
+            "Quantum cryptography"
+          ],
+          "university": "Università degli Studi di Brescia"
+        },
+        {
+          "code": "INF160",
+          "title": "Advanced Computer Graphics",
+          "credits": 9,
+          "contents": [
+            "Ray tracing",
+            "Global illumination",
+            "Physically based rendering",
+            "Real-time graphics techniques"
+          ],
+          "university": "Università degli Studi di Trieste"
+        },
+        {
+          "code": "INF161",
+          "title": "Formal Verification",
+          "credits": 6,
+          "contents": [
+            "Model checking with SPIN",
+            "SAT and SMT solvers",
+            "Program verification",
+            "Hardware verification"
+          ],
+          "university": "Università degli Studi di Bergamo"
+        },
+        {
+          "code": "INF162",
+          "title": "Advanced Distributed Systems",
+          "credits": 9,
+          "contents": [
+            "Byzantine fault tolerance",
+            "Distributed consensus (Paxos, Raft)",
+            "Blockchain as a distributed system",
+            "Edge computing architectures"
+          ],
+          "university": "Università degli Studi di Siena"
+        },
+        {
+          "code": "INF163",
+          "title": "Computational Neuroscience",
+          "credits": 6,
+          "contents": [
+            "Neural modeling",
+            "Brain-computer interfaces",
+            "Cognitive architectures",
+            "Neuroinformatics"
+          ],
+          "university": "Università degli Studi di Palermo"
+        },
+        {
+          "code": "INF164",
+          "title": "Advanced IoT Security",
+          "credits": 6,
+          "contents": [
+            "Side-channel attacks on IoT",
+            "Secure firmware updates",
+            "Trusted execution environments",
+            "IoT penetration testing"
+          ],
+          "university": "Università degli Studi di Cagliari"
+        },
+        {
+          "code": "INF165",
+          "title": "Advanced NLP",
+          "credits": 9,
+          "contents": [
+            "Transformer architectures",
+            "Multilingual NLP",
+            "Dialogue systems",
+            "Ethics in NLP"
+          ],
+          "university": "Università Bocconi (Milano)"
+        },
+        {
+          "code": "INF166",
+          "title": "Serverless Architectures",
+          "credits": 6,
+          "contents": [
+            "AWS Lambda, Azure Functions",
+            "Event-driven architectures",
+            "Cold start optimization",
+            "Security considerations"
+          ],
+          "university": "Università Cattolica del Sacro Cuore"
+        },
+        {
+          "code": "INF167",
+          "title": "Advanced Game AI",
+          "credits": 6,
+          "contents": [
+            "Procedural content generation",
+            "Behavior trees",
+            "Machine learning in games",
+            "Player modeling"
+          ],
+          "university": "Università LUISS Guido Carli (Roma)"
+        },
+        {
+          "code": "INF168",
+          "title": "Cyber-Physical Systems",
+          "credits": 6,
+          "contents": [
+            "Industrial control systems",
+            "Real-time sensor networks",
+            "Safety-critical systems",
+            "Formal methods for CPS"
+          ],
+          "university": "Università Vita-Salute San Raffaele (Milano)"
+        },
+        {
+          "code": "INF169",
+          "title": "Advanced Computational Mathematics",
+          "credits": 9,
+          "contents": [
+            "Numerical PDEs",
+            "Computational geometry",
+            "High-dimensional optimization",
+            "Symbolic computation"
+          ],
+          "university": "Politecnico di Bari"
+        },
+        {
+          "code": "INF170",
+          "title": "Autonomous Robotics",
+          "credits": 9,
+          "contents": [
+            "Simultaneous localization and mapping (SLAM)",
+            "Motion planning under uncertainty",
+            "Multi-agent coordination",
+            "Ethical AI in robotics"
+          ],
+          "university": "Università Telematica Internazionale Uninettuno"
+        },
+        {
+          "code": "INF171",
+          "title": "Network Security",
+          "credits": 6,
+          "contents": [
+            "Intrusion detection systems",
+            "Network forensics",
+            "Honeypots and deception",
+            "Zero-day vulnerabilities"
+          ],
+          "university": "Università Telematica Pegaso"
+        },
+        {
+          "code": "INF172",
+          "title": "Time Series Analysis",
+          "credits": 6,
+          "contents": [
+            "ARIMA models",
+            "Deep learning for time series",
+            "Anomaly detection",
+            "Forecasting techniques"
+          ],
+          "university": "Università degli Studi di Pisa"
+        },
+        {
+          "code": "INF173",
+          "title": "Advanced Computer Vision",
+          "credits": 9,
+          "contents": [
+            "3D computer vision",
+            "Visual SLAM",
+            "Action recognition",
+            "Explainable computer vision"
+          ],
+          "university": "Università degli Studi di Padova"
+        },
+        {
+          "code": "INF174",
+          "title": "Algorithmic Game Theory",
+          "credits": 6,
+          "contents": [
+            "Nash equilibrium computation",
+            "Mechanism design",
+            "Price of anarchy",
+            "Algorithmic fairness"
+          ],
+          "university": "Università degli Studi di Milano"
+        },
+        {
+          "code": "INF175",
+          "title": "Digital Forensics",
+          "credits": 6,
+          "contents": [
+            "Disk imaging",
+            "Memory forensics",
+            "Anti-forensics techniques",
+            "Legal aspects"
+          ],
+          "university": "Sapienza Università di Roma"
+        },
+        {
+          "code": "INF176",
+          "title": "Embedded Security",
+          "credits": 6,
+          "contents": [
+            "Secure boot",
+            "Trusted Platform Modules",
+            "Physical attacks and countermeasures",
+            "Secure element programming"
+          ],
+          "university": "Politecnico di Torino"
+        },
+        {
+          "code": "INF177",
+          "title": "Advanced Cloud Security",
+          "credits": 6,
+          "contents": [
+            "Cloud access security brokers",
+            "Container security",
+            "Serverless security",
+            "Cloud compliance frameworks"
+          ],
+          "university": "Università degli Studi di Napoli Federico II"
+        },
+        {
+          "code": "INF178",
+          "title": "Generative Models",
+          "credits": 6,
+          "contents": [
+            "Variational autoencoders",
+            "Normalizing flows",
+            "Diffusion models",
+            "Evaluation of generative models"
+          ],
+          "university": "Università degli Studi di Bari"
+        },
+        {
+          "code": "INF179",
+          "title": "Program Analysis",
+          "credits": 6,
+          "contents": [
+            "Static analysis",
+            "Symbolic execution",
+            "Taint analysis",
+            "Binary analysis"
+          ],
+          "university": "Università degli Studi di Catania"
+        },
+        {
+          "code": "INF180",
+          "title": "Extended Reality (XR)",
+          "credits": 6,
+          "contents": [
+            "Mixed reality development",
+            "Spatial computing",
+            "Haptics in XR",
+            "Enterprise XR applications"
+          ],
+          "university": "Università degli Studi di Genova"
+        },
+        {
+          "code": "INF181",
+          "title": "Decentralized Finance (DeFi)",
+          "credits": 6,
+          "contents": [
+            "Smart contract security",
+            "Automated market makers",
+            "Flash loans",
+            "Regulatory challenges"
+          ],
+          "university": "Università degli Studi di Firenze"
+        },
+        {
+          "code": "INF182",
+          "title": "Computational Epidemiology",
+          "credits": 6,
+          "contents": [
+            "Compartmental models",
+            "Network epidemiology",
+            "Digital contact tracing",
+            "Privacy-preserving techniques"
+          ],
+          "university": "Università degli Studi di Trento"
+        },
+        {
+          "code": "INF183",
+          "title": "Kernel Programming",
+          "credits": 6,
+          "contents": [
+            "Linux kernel modules",
+            "Memory management",
+            "Scheduler internals",
+            "Kernel debugging"
+          ],
+          "university": "Università degli Studi di Pavia"
+        },
+        {
+          "code": "INF184",
+          "title": "High-Frequency Trading Systems",
+          "credits": 6,
+          "contents": [
+            "Low-latency programming",
+            "Market microstructure",
+            "Order book dynamics",
+            "Regulatory aspects"
+          ],
+          "university": "Università degli Studi di Salerno"
+        },
+        {
+          "code": "INF185",
+          "title": "Advanced Cryptographic Protocols",
+          "credits": 6,
+          "contents": [
+            "Zero-knowledge proofs",
+            "Secure multi-party computation",
+            "Homomorphic encryption",
+            "Post-quantum cryptography"
+          ],
+          "university": "Università degli Studi di Verona"
+        },
+        {
+          "code": "INF186",
+          "title": "Knowledge Representation",
+          "credits": 6,
+          "contents": [
+            "Description logics",
+            "Rule-based systems",
+            "Temporal knowledge representation",
+            "Uncertainty in knowledge"
+          ],
+          "university": "Università degli Studi di Udine"
+        },
+        {
+          "code": "INF187",
+          "title": "Compiler Optimization",
+          "credits": 6,
+          "contents": [
+            "Loop transformations",
+            "Automatic parallelization",
+            "Profile-guided optimization",
+            "Polyhedral compilation"
+          ],
+          "university": "Università della Calabria"
+        },
+        {
+          "code": "INF188",
+          "title": "Wireless Security",
+          "credits": 6,
+          "contents": [
+            "Wi-Fi security (WPA3)",
+            "Cellular network security",
+            "Bluetooth vulnerabilities",
+            "RFID security"
+          ],
+          "university": "Università degli Studi di Camerino"
+        },
+        {
+          "code": "INF189",
+          "title": "Computability Theory",
+          "credits": 6,
+          "contents": [
+            "Recursion theory",
+            "Oracle computation",
+            "Degrees of unsolvability",
+            "Hypercomputation"
+          ],
+          "university": "Università degli Studi di Perugia"
+        },
+        {
+          "code": "INF190",
+          "title": "Secure Software Development",
+          "credits": 6,
+          "contents": [
+            "Threat modeling",
+            "Secure design patterns",
+            "Security testing",
+            "Supply chain security"
+          ],
+          "university": "Università degli Studi di Parma"
+        },
+        {
+          "code": "INF191",
+          "title": "Social Media Analytics",
+          "credits": 6,
+          "contents": [
+            "Sentiment analysis",
+            "Influence detection",
+            "Misinformation tracking",
+            "Ethical considerations"
+          ],
+          "university": "Politecnico di Milano"
+        },
+        {
+          "code": "INF192",
+          "title": "Robotic Process Automation",
+          "credits": 6,
+          "contents": [
+            "RPA tools (UiPath, Automation Anywhere)",
+            "Process mining",
+            "Cognitive automation",
+            "RPA security"
+          ],
+          "university": "Politecnico di Torino"
+        },
+        {
+          "code": "INF193",
+          "title": "Federated Learning",
+          "credits": 6,
+          "contents": [
+            "Privacy-preserving ML",
+            "Model aggregation strategies",
+            "Federated optimization",
+            "Cross-device vs cross-silo FL"
+          ],
+          "university": "Università degli Studi di Modena e Reggio Emilia"
+        },
+        {
+          "code": "INF194",
+          "title": "Quantum Machine Learning",
+          "credits": 6,
+          "contents": [
+            "Quantum neural networks",
+            "Quantum kernels",
+            "Variational quantum algorithms",
+            "Hybrid quantum-classical models"
+          ],
+          "university": "Università degli Studi di Brescia"
+        },
+        {
+          "code": "INF195",
+          "title": "Procedural Generation",
+          "credits": 6,
+          "contents": [
+            "Procedural content generation in games",
+            "Wave function collapse",
+            "L-systems",
+            "Applications in simulation"
+          ],
+          "university": "Università degli Studi di Trieste"
+        },
+        {
+          "code": "INF196",
+          "title": "Model-Driven Engineering",
+          "credits": 6,
+          "contents": [
+            "Domain-specific modeling languages",
+            "Model transformation",
+            "Model verification",
+            "Executable models"
+          ],
+          "university": "Università degli Studi di Bergamo"
+        },
+        {
+          "code": "INF197",
+          "title": "Edge AI",
+          "credits": 6,
+          "contents": [
+            "TinyML",
+            "Model compression for edge devices",
+            "Federated learning at edge",
+            "Energy-efficient AI"
+          ],
+          "university": "Università degli Studi di Siena"
+        },
+        {
+          "code": "INF198",
+          "title": "Computational Psychiatry",
+          "credits": 6,
+          "contents": [
+            "Computational models of mental disorders",
+            "Digital phenotyping",
+            "AI in mental health diagnosis",
+            "Ethical implications"
+          ],
+          "university": "Università degli Studi di Palermo"
+        },
+        {
+          "code": "INF199",
+          "title": "5G Security",
+          "credits": 6,
+          "contents": [
+            "5G architecture vulnerabilities",
+            "Network slicing security",
+            "Authentication in 5G",
+            "Privacy in 5G networks"
+          ],
+          "university": "Università degli Studi di Cagliari"
+        },
+        {
+          "code": "INF200",
+          "title": "AI Ethics and Governance",
+          "credits": 6,
+          "contents": [
+            "Algorithmic bias",
+            "AI accountability",
+            "Regulatory frameworks",
+            "Human rights in AI"
+          ],
+          "university": "Università Bocconi (Milano)"
+        }
+      ]
+    }

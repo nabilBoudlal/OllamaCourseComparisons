@@ -78,16 +78,14 @@
             ]
         },
         {
-            "code": "SST0003",
-            "title": "OBBLIGHI FORMATIVI AGGIUNTIVI",
-            "credits": 0,
-            "contents": []
-        },
-        {
             "code": "ST0851",
             "title": "PROGRAMMAZIONE",
             "credits": 12,
-            "contents": []
+            "contents": [
+                "Introduzione alla programmazione",
+                "Tipi di dati",
+                "Java"
+            ]
         },
         {
             "code": "ST0853",
@@ -193,28 +191,28 @@
             ]
         },
         {
-            "code": "SST0002",
-            "title": "PROVA FINALE",
-            "credits": 6,
-            "contents": []
-        },
-        {
             "code": "SST0006",
             "title": "STAGE ESTERNO",
             "credits": 12,
-            "contents": []
+            "contents": [
+                "Tirocinio presso azienda"
+            ]
         },
         {
             "code": "SST0007",
             "title": "STAGE ESTERO",
             "credits": 12,
-            "contents": []
+            "contents": [
+                "Tirocinio svolto all'estero"
+            ]
         },
         {
             "code": "SST0005",
             "title": "STAGE INTERNO",
             "credits": 12,
-            "contents": []
+            "contents": [
+                "Tirocinio svolto all'interno dell'Università"
+            ]
         }
     ]
 }

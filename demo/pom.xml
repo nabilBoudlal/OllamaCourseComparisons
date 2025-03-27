@@ -84,6 +84,57 @@
 			<version>0.34.0</version>
 		</dependency>
 
+		<!-- Hugging Face Embedding Model -->
+		<dependency>
+			<groupId>dev.langchain4j</groupId>
+			<artifactId>langchain4j-hugging-face</artifactId>
+			<version>0.36.2</version> <!-- Use the latest version -->
+		</dependency>
+
+		<dependency>
+			<groupId>dev.langchain4j</groupId>
+			<artifactId>langchain4j-pgvector</artifactId>
+			<version>0.34.0</version>
+		</dependency>
+
+		<!-- PostgreSQL with PGvector support -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+
+		<!-- Jackson for JSON parsing -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-text</artifactId>
+			<version>1.10.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.36</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
