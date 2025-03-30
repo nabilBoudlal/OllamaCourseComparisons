@@ -36,10 +36,10 @@ public class ChatModelConfig {
     @Bean
     ChatLanguageModel chatLanguageModel() {
         return OllamaChatModel.builder()
-                .modelName("llama3.2:latest")
+                .modelName("llama3.2_kaggle:latest")
                 .baseUrl("http://localhost:11434")
                 .timeout(Duration.ofSeconds(360))
-                .temperature(0.3)
+                .temperature(0.2)
                 .build();
     }
 }

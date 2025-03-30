@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 /**
  * Service class responsible for loading and enhancing course documents with knowledge base content.
@@ -98,23 +98,6 @@ public class DocumentLoader {
         }
     }
 
-    /**
-     * Retrieves knowledge context for a given course title.
-     *
-     * @param courseTitle The title of the course to find context for
-     * @return A semicolon-separated string of relevant topics, or empty string if not found
-     */
-    public String getKnowledgeContext(String courseTitle) {
-        try {
-            Map<String, List<String>> kbContents = loadKnowledgeBaseContents();
-            return findBestFuzzyMatch(kbContents, courseTitle)
-                    .map(entry -> String.join("; ", entry.getValue()))
-                    .orElse("");
-        } catch (IOException e) {
-            logger.warn("Failed to load KB context", e);
-            return "";
-        }
-    }
 
     /**
      * Loads knowledge base contents from the JSON resource file.
@@ -148,7 +131,7 @@ public class DocumentLoader {
     /**
      * Enhances course text with knowledge base content and standardized formatting.
      *
-     * @param course The course JSON object
+     * @param course     The course JSON object
      * @param kbContents Map of knowledge base contents
      * @return Enhanced course text in standardized format
      */
@@ -241,19 +224,6 @@ public class DocumentLoader {
         return contents;
     }
 
-    /**
-     * Builds a general subject context from subject code.
-     *
-     * @param subjectCode The specific subject code
-     * @return General subject category
-     */
-    private String buildSubjectContext(String subjectCode) {
-        if (subjectCode.contains("MAT")) return "MATHEMATICS";
-        if (subjectCode.contains("INF")) return "COMPUTER_SCIENCE";
-        if (subjectCode.contains("ING")) return "ENGINEERING";
-        if (subjectCode.contains("FIS")) return "PHYSICS";
-        return "GENERAL";
-    }
 
     /**
      * Checks if a topic is considered generic.
@@ -281,17 +251,37 @@ public class DocumentLoader {
         mapping.put("MAT/02", "MATHEMATICS");
         mapping.put("MAT/05", "MATHEMATICS");
         mapping.put("MAT/06", "MATHEMATICS");
+        mapping.put("MAT/08", "NUMERICAL_MATH");
+        mapping.put("MAT/09", "OPERATIONS_RESEARCH");
 
         // Languages
-        mapping.put("L-LIN/12", "LANGUAGE");
+        mapping.put("L-LIN/12", "ENGLISH");
 
-        // Business/Economics
-        mapping.put("SECS-P/07", "ECONOMICS");
+        // Practical Training
+        mapping.put("PRACTICAL_TRAINING", "PRACTICAL_TRAINING");
 
-        // Sciences
-        mapping.put("FIS/01", "PHYSICS");
-        mapping.put("CHIM/03", "CHEMISTRY");
+        //
+        mapping.put("SECS-P/08", "BUSINESS_MANAGEMENT");
 
         return mapping;
     }
+
+    public List<String> getAllCourse() throws IOException {
+        List<String> titles = new ArrayList<>();
+        try (InputStream inputStream = unicamResource.getInputStream();
+             InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+
+            JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
+            JsonArray courses = json.getAsJsonArray("courses");
+
+            for (JsonElement course : courses) {
+                JsonObject courseObj = course.getAsJsonObject();
+                if (courseObj.has("title")) {
+                    titles.add(courseObj.get("title").getAsString());
+                }
+            }
+        }
+        return titles;
+    }
+
 }

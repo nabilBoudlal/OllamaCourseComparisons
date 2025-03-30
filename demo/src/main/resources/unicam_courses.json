@@ -4,6 +4,7 @@
         {
             "code": "SST0068",
             "title": "ARCHITETTURA DEGLI ELABORATORI",
+            "subjectCode": "INF/01",
             "credits": 12,
             "contents": [
                 "Logica digitale e sistemi digitali",
@@ -16,6 +17,7 @@
         {
             "code": "ST0856",
             "title": "BUSINESS E MANAGEMENT NELL'INFORMATION TECHNOLOGY",
+            "subjectCode": "SECS-P/08",
             "credits": 6,
             "contents": [
                 "L'impresa e il suo ambiente",
@@ -31,6 +33,7 @@
         {
             "code": "ST0253",
             "title": "CALCOLO DELLE PROBABILITA' E STATISTICA",
+            "subjectCode": "MAT/06",
             "credits": 6,
             "contents": [
                 "Assiomi della Probabilità",
@@ -46,6 +49,7 @@
         {
             "code": "ST0247",
             "title": "FONDAMENTI DI INFORMATICA",
+            "subjectCode": "INF/01",
             "credits": 6,
             "contents": [
                 "La computabilità da Leibniz ai giorni nostri",
@@ -59,12 +63,14 @@
         {
             "code": "STING01",
             "title": "INGLESE - LIVELLO B1",
+            "subjectCode": "L-LIN/12",
             "credits": 6,
             "contents": []
         },
         {
             "code": "ST0821",
             "title": "MATEMATICA GENERALE (LOGICA MATEMATICA 6 CFU + MATEMATICA DISCRETA 6 CFU)",
+            "subjectCode": "MAT/02",
             "credits": 12,
             "contents": [
                 "Metodo dimostrativo",
@@ -80,6 +86,7 @@
         {
             "code": "ST0851",
             "title": "PROGRAMMAZIONE",
+            "subjectCode": "INF/01",
             "credits": 12,
             "contents": [
                 "Introduzione alla programmazione",
@@ -90,6 +97,7 @@
         {
             "code": "ST0853",
             "title": "ALGORITMI E STRUTTURE DATI",
+            "subjectCode": "INF/01",
             "credits": 12,
             "contents": [
                 "Il ruolo degli algoritmi nel processo di problem solving",
@@ -104,6 +112,7 @@
         {
             "code": "ST0266",
             "title": "BASI DI DATI",
+            "subjectCode": "INF/01",
             "credits": 12,
             "contents": [
                 "Basi di dati relazionali: modello e linguaggi",
@@ -115,6 +124,7 @@
         {
             "code": "SST0069",
             "title": "INTERNET, RETI E SICUREZZA",
+            "subjectCode": "ING-INF/05",
             "credits": 12,
             "contents": [
                 "Livelli ISO/OSI",
@@ -128,6 +138,7 @@
         {
             "code": "ST1419",
             "title": "METODOLOGIE DI PROGRAMMAZIONE",
+            "subjectCode": "INF/01",
             "credits": 12,
             "contents": [
                 "Programmazione orientata agli oggetti in Java",
@@ -138,6 +149,7 @@
         {
             "code": "ST0302",
             "title": "RICERCA OPERATIVA",
+            "subjectCode": "MAT/09",
             "credits": 6,
             "contents": [
                 "Programmazione Lineare e Programmazione Intera",
@@ -150,6 +162,7 @@
         {
             "code": "ST0830",
             "title": "SISTEMI OPERATIVI",
+            "subjectCode": "INF/01",
             "credits": 6,
             "contents": [
                 "Introduzione ai sistemi operativi",
@@ -162,6 +175,7 @@
         {
             "code": "ST0496",
             "title": "INGEGNERIA DEL SOFTWARE",
+            "subjectCode": "INF/01",
             "credits": 12,
             "contents": [
                 "Processi di sviluppo",
@@ -172,6 +186,7 @@
         {
             "code": "ST1344",
             "title": "LINGUAGGI E COMPILATORI",
+            "subjectCode": "INF/01",
             "credits": 6,
             "contents": [
                 "Architettura dei compilatori",
@@ -182,6 +197,7 @@
         {
             "code": "ST1420",
             "title": "PARADIGMI AVANZATI DI PROGRAMMAZIONE",
+            "subjectCode": "INF/01",
             "credits": 12,
             "contents": [
                 "Chiusura di funzioni",
@@ -193,6 +209,7 @@
         {
             "code": "SST0006",
             "title": "STAGE ESTERNO",
+            "subjectCode": "PRACTICAL_TRAINING",
             "credits": 12,
             "contents": [
                 "Tirocinio presso azienda"
@@ -201,6 +218,7 @@
         {
             "code": "SST0007",
             "title": "STAGE ESTERO",
+            "subjectCode": "PRACTICAL_TRAINING",
             "credits": 12,
             "contents": [
                 "Tirocinio svolto all'estero"
@@ -209,6 +227,7 @@
         {
             "code": "SST0005",
             "title": "STAGE INTERNO",
+            "subjectCode": "PRACTICAL_TRAINING",
             "credits": 12,
             "contents": [
                 "Tirocinio svolto all'interno dell'Università"

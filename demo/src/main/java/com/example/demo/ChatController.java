@@ -18,7 +18,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * REST Controller for handling course-related operations including loading courses and finding similar courses.
+ * REST Controller for handling course matching operations.
+ * Processes course information and finds similar courses based on semantic similarity.
  */
 @RestController
 @RequestMapping("/api/v1")
@@ -27,27 +28,28 @@ public class ChatController {
     private final EmbeddingStore<TextSegment> embeddingStore;
     private final EmbeddingModel embeddingModel;
     private final DocumentLoader documentLoader;
+    private final LlamaReviewService llamaReviewService;
 
-    /**
-     * Constructs a new ChatController with required dependencies.
-     *
-     * @param embeddingStore   The embedding store for course data
-     * @param embeddingModel   The model for generating embeddings
-     * @param documentLoader   The loader for course documents
-     */
+    // Subject groups for better matching
+    private static final Map<String, Set<String>> RELATED_SUBJECTS = Map.of(
+            "COMPUTER_SCIENCE", Set.of("COMPUTER_ENGINEERING", "SOFTWARE_ENGINEERING", "INFORMATION_TECHNOLOGY"),
+            "ENGINEERING", Set.of("PHYSICS", "MATHEMATICS", "CHEMISTRY", "COMPUTER_ENGINEERING"),
+            "MATHEMATICS", Set.of("APPLIED_MATH", "STATISTICS", "NUMERICAL_MATH", "OPERATIONS_RESEARCH"),
+            "PRACTICAL_TRAINING", Set.of("WORK_EXPERIENCE", "INTERNSHIP"),
+            "BUSINESS_MANAGEMENT", Set.of("ECONOMICS", "MANAGEMENT")
+    );
+
     public ChatController(EmbeddingStore<TextSegment> embeddingStore,
                           EmbeddingModel embeddingModel,
-                          DocumentLoader documentLoader) {
+                          DocumentLoader documentLoader, LlamaReviewService llamaReviewService) {
         this.embeddingStore = embeddingStore;
         this.embeddingModel = embeddingModel;
         this.documentLoader = documentLoader;
+        this.llamaReviewService = llamaReviewService;
     }
 
-    /**
-     * Loads courses into the embedding store.
-     *
-     * @return ResponseEntity indicating success or failure
-     */
+    // ================== Public Endpoints ================== //
+
     @GetMapping("/load")
     public ResponseEntity<String> loadCourses() {
         try {
@@ -60,173 +62,158 @@ public class ChatController {
         }
     }
 
-    /**
-     * Processes a user query to find similar courses.
-     *
-     * @param userQuery The query containing course information
-     * @return Formatted response with matching courses or error messages
-     */
     @GetMapping("/chat")
     public String chat(@RequestParam("userQuery") String userQuery) {
         try {
-            logger.info("Received query:\n{}", userQuery);
-
-            return Arrays.stream(userQuery.split("\\r?\\n"))
-                    .map(String::trim)
-                    .filter(line -> !line.isEmpty())
-                    .peek(line -> logger.debug("Processing line: '{}'", line))
-                    .map(line -> {
-                        try {
-                            return processCourse(line);
-                        } catch (Exception e) {
-                            logger.warn("Skipping unprocessable line: '{}'", line);
-                            return formatSkippedLine(line);
-                        }
-                    })
-                    .filter(response -> !response.isEmpty())
-                    .collect(Collectors.joining("\n\n"));
+            return processUserQuery(userQuery);
         } catch (Exception e) {
             logger.error("Processing failed", e);
             return "Error: " + e.getMessage();
         }
     }
 
+    // ================== Core Processing Methods ================== //
+
     /**
-     * Formats a line that was skipped during processing.
-     *
-     * @param line The line that couldn't be processed
-     * @return Formatted message about the skipped line
+     * Processes multi-line user query and returns formatted results
      */
-    private String formatSkippedLine(String line) {
-        if (isNonCourseLine(line)) {
-            return ""; // Skip non-course lines silently
-        }
-        return String.format("### Could not process line\n%s", line);
+    private String processUserQuery(String userQuery) {
+        return Arrays.stream(userQuery.split("\\r?\\n"))
+                .map(String::trim)
+                .filter(line -> !line.isEmpty())
+                .map(this::processCourseLine)
+                .filter(response -> !response.isEmpty())
+                .collect(Collectors.joining("\n\n"));
     }
 
     /**
-     * Processes a single course line to find similar courses.
-     *
-     * @param courseLine The course information line to process
-     * @return Formatted response with matching courses
+     * Processes a single course line through the full pipeline
      */
-    private String processCourse(String courseLine) {
+    private String processCourseLine(String courseLine) {
         try {
-            logger.debug("Attempting to parse: '{}'", courseLine);
             CourseInfo courseInfo = parseCourseLine(courseLine);
-
-            String processedQuery = buildEnhancedQuery(courseInfo);
-            logger.debug("Enhanced query: '{}'", processedQuery);
-
-            Embedding queryEmbedding = embeddingModel.embed(processedQuery).content();
-            List<EmbeddingMatch<TextSegment>> matches = embeddingStore.findRelevant(queryEmbedding, 10);
-            List<EmbeddingMatch<TextSegment>> filteredMatches = filterMatches(matches, courseInfo);
-
-            return formatResponse(courseInfo, filteredMatches);
+            List<EmbeddingMatch<TextSegment>> matches = findSimilarCourses(courseInfo);
+            return formatCourseResponse(courseInfo, matches);
         } catch (Exception e) {
-            logger.error("Failed to process line: '{}'", courseLine, e);
-            return formatErrorResponse(courseLine, e.getMessage());
+
+            logger.warn("Failed to process line: '{}'", courseLine, e);
+            return formatProcessingError(courseLine, e.getMessage());
         }
     }
 
+    // ================== Course Matching Logic ================== //
+
     /**
-     * Formats an error response for a course line that couldn't be processed.
-     *
-     * @param courseLine The course line that caused the error
-     * @param error      The error message
-     * @return Formatted error response
+     * Finds similar courses using semantic search
      */
-    private String formatErrorResponse(String courseLine, String error) {
-        String[] parts = courseLine.split("\\s+");
-        String courseName = parts.length > 1 ? parts[1] : "Unknown Course";
-        return String.format("### %s\nError: %s\nInput: %s", courseName, error, courseLine);
+    private List<EmbeddingMatch<TextSegment>> findSimilarCourses(CourseInfo course) {
+        String query = buildSemanticQuery(course);
+        Embedding queryEmbedding = embeddingModel.embed(query).content();
+
+        List<EmbeddingMatch<TextSegment>> matches = embeddingStore.findRelevant(queryEmbedding, 15);
+        return filterAndScoreMatches(matches, course);
     }
 
     /**
-     * Builds an enhanced query string for embedding generation.
-     *
-     * @param course The course information
-     * @return Enhanced query string
+     * Builds enhanced query for semantic search
      */
-    private String buildEnhancedQuery(CourseInfo course) {
-        String specificSubject = documentLoader.loadSubjectMapping()
+    private String buildSemanticQuery(CourseInfo course) {
+        String subject = documentLoader.loadSubjectMapping()
                 .getOrDefault(course.subjectCode(), "GENERAL");
 
         return String.format(
-                "TITLE: %s | SUBJECT: %s | CREDITS: %d",
-                normalizeTitle(course.title()),
-                specificSubject,
+                "COURSE: %s | SUBJECT: %s | FIELD: %s | CREDITS: %d",
+                normalizeText(course.title()),
+                subject,
+                getAcademicField(course.subjectCode()),
                 course.credits()
         );
     }
 
     /**
-     * Adjusts the match score based on subject code relevance.
-     *
-     * @param match  The embedding match
-     * @param course The course information
-     * @return Adjusted embedding match
+     * Filters and scores matches based on relevance
      */
-    private EmbeddingMatch<TextSegment> adjustMatchScore(EmbeddingMatch<TextSegment> match, CourseInfo course) {
-        double newScore = match.score();
-        String text = match.embedded().text();
+    private List<EmbeddingMatch<TextSegment>> filterAndScoreMatches(
+            List<EmbeddingMatch<TextSegment>> matches, CourseInfo course) {
 
-        // Credit match bonus
-        int matchedCredits = Integer.parseInt(extractField(text, "CREDITS"));
-        if (matchedCredits == course.credits()) {
-            newScore *= 1.15; // 15% boost for exact credit match
+        String targetSubject = documentLoader.loadSubjectMapping()
+                .getOrDefault(course.subjectCode(), "GENERAL");
+
+        return matches.stream()
+                .map(match -> {
+                    String text = match.embedded().text();
+                    String matchSubject = extractField(text, "SUBJECT");
+                    int matchedCredits = Integer.parseInt(extractField(text, "CREDITS"));
+
+                    // Calculate scoring factors
+                    double subjectBoost = calculateSubjectBoost(matchSubject, targetSubject);
+                    double creditFactor = calculateCreditFactor(matchedCredits, course.credits());
+                    double titleSimilarity = calculateTitleSimilarity(
+                            extractField(text, "TITLE"),
+                            course.title()
+                    );
+
+                    return new EmbeddingMatch<>(
+                            match.score() * subjectBoost * creditFactor * titleSimilarity,
+                            match.embeddingId(),
+                            match.embedding(),
+                            match.embedded()
+                    );
+                })
+                .filter(match -> {
+                    String text = match.embedded().text();
+                    String matchSubject = extractField(text, "SUBJECT");
+                    int matchedCredits = Integer.parseInt(extractField(text, "CREDITS"));
+
+                    return !isClearlyIrrelevant(matchSubject, targetSubject, text) &&
+                            isCreditDifferenceAcceptable(matchedCredits, course.credits(), targetSubject);
+                })
+                .sorted(Comparator.comparingDouble(match -> -match.score()))
+                .limit(3)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Calculates subject relevance boost factor
+     */
+    private double calculateSubjectBoost(String matchSubject, String targetSubject) {
+        if (matchSubject.equals(targetSubject)) {
+            return 1.5; // Exact match boost
         }
-
-        // Rest of your existing scoring logic
-        return new EmbeddingMatch<>(newScore, match.embeddingId(), match.embedding(), match.embedded());
-    }
-    /**
-     * Normalizes a course title by removing special characters and converting to lowercase.
-     *
-     * @param title The title to normalize
-     * @return Normalized title
-     */
-    private String normalizeTitle(String title) {
-        return title.replaceAll("[^a-zA-Z0-9\\s]", "").trim().toLowerCase();
+        if (isRelatedSubject(matchSubject, targetSubject)) {
+            return 1.2; // Related subject boost
+        }
+        // Penalize mismatches between theoretical and practical subjects
+        if (matchSubject.equals("PRACTICAL_TRAINING") || targetSubject.equals("PRACTICAL_TRAINING")) {
+            return 0.3;
+        }
+        return 0.7; // Penalty for unrelated subjects
     }
 
+    // ================== Course Parsing Methods ================== //
+
     /**
-     * Parses a course line into structured CourseInfo.
-     *
-     * @param line The course information line
-     * @return Parsed CourseInfo
-     * @throws IllegalArgumentException if the line cannot be parsed
+     * Parses a course line into structured CourseInfo
      */
-    private CourseInfo parseCourseLine(String line) {
+    private CourseInfo parseCourseLine(String line) throws IllegalArgumentException {
         if (isNonCourseLine(line)) {
-            throw new IllegalArgumentException("Skipping non-course line");
+            throw new IllegalArgumentException("Not a valid course line");
         }
 
         String normalized = normalizeCourseLine(line);
-        logger.debug("Normalized input: {}", normalized);
 
-        return trySubjectFirst(normalized)
-                .or(() -> trySubjectLast(normalized))
-                .orElseThrow(() -> new IllegalArgumentException("Cannot parse course line: " + line));
+
+        // Try both subject-first and subject-last patterns
+        return tryParseCourse(normalized)
+                .or(() -> tryLanguageCourse(normalized))
+                .orElseThrow(() -> new IllegalArgumentException("Cannot parse course line"));
     }
 
-    /**
-     * Checks if a line is likely not a course description.
-     *
-     * @param line The line to check
-     * @return true if the line is not a course description
-     */
     private boolean isNonCourseLine(String line) {
         return line.matches("(?i).*(anno|year|semestre|semester).*") ||
                 line.trim().split("\\s+").length < 3;
     }
 
-    /**
-     * Normalizes a course line by cleaning OCR artifacts and standardizing format.
-     *
-     * @param line The line to normalize
-     * @return Normalized line
-     */
     private String normalizeCourseLine(String line) {
         return line.trim()
                 .replaceAll("[\\s,;|]+", " ")
@@ -236,15 +223,123 @@ public class ChatController {
                 .replaceAll("\\s+", " ");
     }
 
-    /**
-     * Attempts to parse a course line in subject-first format.
-     *
-     * @param line The line to parse
-     * @return Optional containing CourseInfo if parsing succeeds
-     */
-    private Optional<CourseInfo> trySubjectFirst(String line) {
+    public Optional<CourseInfo> tryParseCourse(String line) {
+        if (line == null || line.trim().isEmpty()) {
+            return Optional.empty();
+        }
+
+        // Normalize the input string
+        line = line.trim().replaceAll("\\s+", " ");
+
+        // Attempt 1: Structured pattern (code after name)
+        Pattern structuredPattern1 = Pattern.compile(
+                "^(?:(\\d+)\\s+)?" +                     // Optional leading digits (group 1)
+                        "(.+?)" +                                // Course name (group 2)
+                        "\\s+([A-Za-z]{2,4}(?:-[A-Za-z]{2,4})?/\\d{1,2})" +  // Course code (group 3)
+                        "\\s+(\\d+)" +                           // Credits (group 4)
+                        "(?:\\s+([IVXLCDM]+))?$",                // Optional Roman numerals (group 5)
+                Pattern.CASE_INSENSITIVE
+        );
+
+        Matcher m1 = structuredPattern1.matcher(line);
+        if (m1.find()) {
+            return Optional.of(new CourseInfo(
+                    m1.group(1) != null ? m1.group(1) : "",
+                    m1.group(2).trim(),
+                    m1.group(3).toUpperCase(),
+                    Integer.parseInt(m1.group(4))
+            ));
+        }
+
+        // Attempt 2: Structured pattern (code before name)
+        Pattern structuredPattern2 = Pattern.compile(
+                "^(?:(\\d+)\\s+)?" +                     // Optional leading digits (group 1)
+                        "([A-Za-z]{2,4}(?:-[A-Za-z]{2,4})?/\\d{1,2})" +  // Course code (group 2)
+                        "\\s+(.+?)" +                            // Course name (group 3)
+                        "\\s+(\\d+)" +                           // Credits (group 4)
+                        "(?:\\s+([IVXLCDM]+))?$",                // Optional Roman numerals (group 5)
+                Pattern.CASE_INSENSITIVE
+        );
+
+        Matcher m2 = structuredPattern2.matcher(line);
+        if (m2.find()) {
+            return Optional.of(new CourseInfo(
+                    m2.group(1) != null ? m2.group(1) : "",
+                    m2.group(3).trim(),
+                    m2.group(2).toUpperCase(),
+                    Integer.parseInt(m2.group(4))
+            ));
+        }
+
+        // Attempt 3: Flexible fallback approach
+        // Find course code anywhere in string
+        Pattern codePattern = Pattern.compile(
+                "([A-Za-z]{2,4}(?:-[A-Za-z]{2,4})?/\\d{1,2})",
+                Pattern.CASE_INSENSITIVE
+        );
+
+        Matcher codeMatcher = codePattern.matcher(line);
+        if (codeMatcher.find()) {
+            String courseCode = codeMatcher.group(1).toUpperCase();
+
+            // Find last number in string (credits)
+            Pattern creditPattern = Pattern.compile("(\\d+)(?!.*\\d)");
+            Matcher creditMatcher = creditPattern.matcher(line);
+
+            if (creditMatcher.find()) {
+                int credits = Integer.parseInt(creditMatcher.group(1));
+
+                // Course name is everything except code and credits
+                String courseName = line.replace(courseCode, "")
+                        .replace(creditMatcher.group(1), "")
+                        .replaceAll("[^a-zA-Z0-9\\s]", "")
+                        .trim()
+                        .replaceAll("\\s+", " ");
+
+                return Optional.of(new CourseInfo(
+                        "",
+                        courseName,
+                        courseCode,
+                        credits
+                ));
+            }
+        }
+
+        // Final fallback: Try to extract just code and credits
+        Matcher lastTryMatcher = Pattern.compile(
+                "([A-Za-z]{2,4}(?:-[A-Za-z]{2,4})?/\\d{1,2}).*?(\\d+)",
+                Pattern.CASE_INSENSITIVE
+        ).matcher(line);
+
+        if (lastTryMatcher.find()) {
+            return Optional.of(new CourseInfo(
+                    "",
+                    "Unknown Course",
+                    lastTryMatcher.group(1).toUpperCase(),
+                    Integer.parseInt(lastTryMatcher.group(2))
+            ));
+        }
+        Pattern businessPattern = Pattern.compile(
+                "^(\\w+)\\s+([A-Z]{2,4}-[A-Z]{2,4}/\\d{2})\\s+(\\d+)$",
+                Pattern.CASE_INSENSITIVE
+        );
+
+        Matcher m = businessPattern.matcher(line);
+        if (m.find()) {
+            return Optional.of(new CourseInfo(
+                    "",
+                    m.group(1).trim(),
+                    m.group(2).toUpperCase(),
+                    Integer.parseInt(m.group(3))
+            ));
+        }
+
+        return Optional.empty();
+    }
+
+    private Optional<CourseInfo> tryLanguageCourse(String line) {
         Pattern pattern = Pattern.compile(
-                "^([A-Z]{2,4}(?:-[A-Z]{2,4})?/\\d{1,2})\\s+(.*?)\\s+(\\d+)\\s*([IV-]+)?$",
+                "^(\\d+\\s+)?(lingua\\s+)?inglese(.*?)(L-LIN/12)?\\s+(\\d+)(?:\\s+\\d+)*$",
                 Pattern.CASE_INSENSITIVE
         );
 
@@ -252,118 +347,130 @@ public class ChatController {
         if (matcher.find()) {
             return Optional.of(new CourseInfo(
                     "",
-                    matcher.group(2).trim(),
-                    matcher.group(1).toUpperCase(),
-                    Integer.parseInt(matcher.group(3))
-            ));
+                    "Lingua Inglese",
+                    "L-LIN/12",
+                    Integer.parseInt("6"))
+            );
         }
         return Optional.empty();
     }
 
-    /**
-     * Attempts to parse a course line in subject-last format.
-     *
-     * @param line The line to parse
-     * @return Optional containing CourseInfo if parsing succeeds
-     */
-    private Optional<CourseInfo> trySubjectLast(String line) {
-        Pattern pattern = Pattern.compile(
-                "^(.*?)\\s+([A-Z]{2,4}(?:-[A-Z]{2,4})?/\\d{1,2})\\s+(\\d+)\\s*([IV-]+)?$",
-                Pattern.CASE_INSENSITIVE
-        );
+    // ================== Match Validation Methods ================== //
 
-        Matcher matcher = pattern.matcher(line);
-        if (matcher.find()) {
-            return Optional.of(new CourseInfo(
-                    "",
-                    matcher.group(1).trim(),
-                    matcher.group(2).toUpperCase(),
-                    Integer.parseInt(matcher.group(3))
-            ));
+
+    private boolean isClearlyIrrelevant(String matchSubject, String targetSubject, String text) {
+        // Filter language courses for technical subjects
+        if (matchSubject.equals("ENGLISH") &&
+                (targetSubject.equals("COMPUTER_SCIENCE") ||
+                        targetSubject.equals("ENGINEERING"))) {
+            return true;
         }
-        return Optional.empty();
+
+        // Filter internships unless explicitly matched
+        if (text.contains("STAGE") || text.contains("TIROCINIO") || text.contains("INTERNSHIP")) {
+            return !targetSubject.equals("PRACTICAL_TRAINING");
+        }
+
+        return false;
     }
 
     /**
-     * Formats the response for a course with its matches.
-     *
-     * @param course  The course information
-     * @param matches List of matching courses
-     * @return Formatted response string
+     * Checks if two subjects are related
      */
-    private String formatResponse(CourseInfo course, List<EmbeddingMatch<TextSegment>> matches) {
-        String subjectCategory = documentLoader.loadSubjectMapping().getOrDefault(course.subjectCode(), "GENERAL");
-
-        // Define which subjects are considered core CS
-        Set<String> coreCSSubjects = Set.of("COMPUTER_SCIENCE", "COMPUTER_ENGINEERING");
-
-        // Define which subjects are considered relevant (including math)
-        Set<String> relevantSubjects = Set.of("COMPUTER_SCIENCE", "COMPUTER_ENGINEERING", "MATHEMATICS");
-
-        if (!relevantSubjects.contains(subjectCategory)) {
-            return String.format(
-                    "### %s %s (%s %d CFU)\n" +
-                            "Note: This course appears to be outside our core Computer Science domain.\n" +
-                            "While we found some potential matches, they may not be fully relevant:\n\n%s",
-                    course.code(), course.title(), course.subjectCode(), course.credits(),
-                    formatMatches(matches, false)
-            );
+    private boolean isRelatedSubject(String subject1, String subject2) {
+        if (subject1.equalsIgnoreCase(subject2)) {
+            return true;
         }
 
-        // Special header for math courses
-        if (subjectCategory.equals("MATHEMATICS")) {
-            return String.format(
-                    "### %s %s (%s %d CFU)\n" +
-                            "Note: Found relevant mathematical concepts:\n\n%s",
-                    course.code(), course.title(), course.subjectCode(), course.credits(),
-                    formatMatches(matches, true)
-            );
+        // Handle subject codes directly
+        String field1 = getAcademicField(subject1);
+        String field2 = getAcademicField(subject2);
+
+        if (field1.equals(field2)) return true;
+
+        // Check if subjects are in the same group
+        for (Set<String> group : RELATED_SUBJECTS.values()) {
+            if (group.contains(field1) && group.contains(field2)) {
+                return true;
+            }
         }
-        if (matches.isEmpty()) {
-            return String.format(
-                    "### %s %s (%s %d CFU)\n" +
-                            "No strong matches found. Possible reasons:\n" +
-                            "1. Course may be specialized/unique\n" +
-                            "2. Knowledge base may lack coverage\n" +
-                            "3. Try manual review with syllabus",
-                    course.code(), course.title(), course.subjectCode(), course.credits()
-            );
+        return false;
+    }
+
+    // ================== Scoring Functions ================== //
+
+    /**
+     * Calculates title similarity score (prioritized)
+     */
+    private double calculateTitleSimilarity(String matchTitle, String queryTitle) {
+        // Exact match gets highest score
+        if (normalizeText(matchTitle).equals(normalizeText(queryTitle))) {
+            return 1.5;
+        }
+        // Partial match gets medium score
+        if (matchTitle.toLowerCase().contains(queryTitle.toLowerCase()) ||
+                queryTitle.toLowerCase().contains(matchTitle.toLowerCase())) {
+            return 1.2;
+        }
+        return 1.0;
+    }
+
+
+    /**
+     * Calculates a credit matching factor between 0.1 and 1.5 based on credit difference
+     * @param matchedCredits Credits of the potential match
+     * @param targetCredits Credits of the original course
+     * @return Multiplier factor for the match score
+     */
+    private double calculateCreditFactor(int matchedCredits, int targetCredits) {
+        int creditDiff = Math.abs(matchedCredits - targetCredits);
+
+        // Exact match gets highest boost
+        if (creditDiff == 0) {
+            return 1.5;
         }
 
-        StringBuilder response = new StringBuilder();
-        response.append(String.format("### %s %s (%s %d CFU)\n",
-                course.code(), course.title(), course.subjectCode(), course.credits()));
-
-        matches.forEach(match -> {
-            String text = match.embedded().text();
-            response.append(String.format(
-                    "- %s (Score: %.2f)\n" +
-                            "  ▸ Credits: %s\n" +
-                            "  ▸ Subject: %s\n" +
-                            "  ▸ Content Match: %s\n",
-                    extractField(text, "TITLE"),
-                    match.score(),
-                    extractField(text, "CREDITS"),
-                    extractField(text, "SUBJECT"),
-                    String.join("; ", extractTopTopics(text, 3))
-            ));
-        });
-
-        if (matches.stream().anyMatch(m -> extractField(m.embedded().text(), "CONTENTS").contains("[KB]"))) {
-            response.append("\nℹ️ Some results enhanced with knowledge base");
+        // Small difference gets moderate boost
+        if (creditDiff <= 2) {
+            return 1.2;
         }
 
-        return response.toString();
+        // Moderate difference gets neutral treatment
+        if (creditDiff <= 5) {
+            return 1.0;
+        }
+
+        // Large difference gets penalty
+        if (creditDiff <= 8) {
+            return 0.8;
+        }
+
+        // Very large difference gets heavy penalty
+        return 0.5;
     }
 
     /**
-     * Extracts a field value from embedded text.
-     *
-     * @param text  The text containing fields
-     * @param field The field to extract
-     * @return The field value or "Unknown" if not found
+     * Checks if credit difference is acceptable for the subject type
      */
-    private String extractField(String text, String field) {
+    private boolean isCreditDifferenceAcceptable(int matchedCredits, int targetCredits, String subjectCode) {
+        int diff = Math.abs(matchedCredits - targetCredits);
+        String subjectType = getAcademicField(subjectCode);
+
+        return switch (subjectType) {
+            case "MATHEMATICS", "STATISTICS", "NUMERICAL_MATH" -> diff <= 6;
+            case "LANGUAGE" -> diff <= 1; // Language courses typically have fixed credits
+            case "PRACTICAL_TRAINING" -> true; // Practical training can vary widely
+            case "COMPUTER_SCIENCE", "COMPUTER_ENGINEERING" -> diff <= 3;
+            default -> diff <= 4;
+        };
+    }
+
+    // ================== Utility Methods ================== //
+
+    /**
+     * Extracts field from embedded text
+     */
+    protected String extractField(String text, String field) {
         try {
             return text.split(field + ":")[1].split("\\|")[0].trim();
         } catch (Exception e) {
@@ -372,11 +479,109 @@ public class ChatController {
     }
 
     /**
-     * Extracts the top topics from embedded text.
-     *
-     * @param text  The text containing topics
-     * @param limit Maximum number of topics to return
-     * @return List of top topics
+     * Normalizes text for comparison
+     */
+    private String normalizeText(String text) {
+        return text.replaceAll("[^a-zA-Z0-9\\s]", "").trim().toLowerCase();
+    }
+
+    /**
+     * Determines academic field from subject code
+     */
+    private String getAcademicField(String subjectCode) {
+        if (subjectCode == null || subjectCode.isEmpty()) return "GENERAL";
+
+        if (subjectCode.startsWith("INF/")) return "COMPUTER_SCIENCE";
+        if (subjectCode.startsWith("ING-INF/")) return "COMPUTER_ENGINEERING";
+        if (subjectCode.startsWith("MAT/")) {
+            if (subjectCode.equals("MAT/08")) return "NUMERICAL_MATH";
+            if (subjectCode.equals("MAT/09")) return "OPERATIONS_RESEARCH";
+            return "MATHEMATICS";
+        }
+        if (subjectCode.startsWith("SECS-P/")) return "BUSINESS_MANAGEMENT";
+        if (subjectCode.startsWith("FIS/")) return "PHYSICS";
+        if (subjectCode.startsWith("CHIM/")) return "CHEMISTRY";
+        if (subjectCode.startsWith("L-LIN/")) return "LANGUAGE";
+        if (subjectCode.equals("PRACTICAL_TRAINING")) return "PRACTICAL_TRAINING";
+
+        return "GENERAL";
+    }
+
+    // ================== Response Formatting ================== //
+
+    /**
+     * Formats the final course response
+     */
+    private String formatCourseResponse(CourseInfo course, List<EmbeddingMatch<TextSegment>> matches) {
+        String subjectCategory = documentLoader.loadSubjectMapping()
+                .getOrDefault(course.subjectCode(), "GENERAL");
+
+        StringBuilder response = new StringBuilder();
+        response.append(String.format("### %s %s (%s %d CFU)\n",
+                course.code(), course.title(), subjectCategory, course.credits()));
+
+        if (matches.isEmpty()) {
+            return response.append("No suitable matches found").toString();
+        }
+
+        // Get subject from mapping for comparison
+        String targetSubject = documentLoader.loadSubjectMapping()
+                .getOrDefault(course.subjectCode(), "GENERAL");
+
+        System.out.println(matches);
+        matches.forEach(match -> {
+            String text = match.embedded().text();
+            // Now passing all 3 required arguments
+            response.append(formatMatch(text, match.score(), targetSubject));
+        });
+
+        // Llama review integration
+        try {
+            String review = llamaReviewService.reviewMatches(course, matches);
+            response.append("\nLLAMA REVIEW:\n").append(review);
+        } catch (Exception e) {
+            logger.error("Llama review failed", e);
+        }
+
+        return response.toString();
+    }
+    /**
+     * Formats a single match
+     */
+    private String formatMatch(String matchText, double score, String targetSubject) {
+        String matchSubject = extractField(matchText, "SUBJECT");
+        int credits = Integer.parseInt(extractField(matchText, "CREDITS"));
+
+        String relevanceTag = matchSubject.equals(targetSubject) ? "[Exact Subject Match]" :
+                isRelatedSubject(matchSubject, targetSubject) ? "[Related Subject]" : "";
+
+        return String.format(
+                "- %s (Score: %.2f) %s\n" +
+                        "  ▸ Subject: %s\n" +
+                        "  ▸ Credits: %d\n" +
+                        "  ▸ Topics: %s\n",
+                extractField(matchText, "TITLE"),
+                score,
+                relevanceTag,
+                matchSubject,
+                credits,
+                String.join("; ", extractTopTopics(matchText, 3))
+        );
+    }
+
+
+    /**
+     * Formats error response for unprocessable lines
+     */
+    private String formatProcessingError(String courseLine, String error) {
+        String[] parts = courseLine.split("\\s+");
+        String courseName = parts.length > 1 ? parts[1] : "Unknown Course";
+        return String.format("### %s\nError: %s\nInput: %s",
+                courseName, error, courseLine);
+    }
+
+    /**
+     * Extracts top topics from course content
      */
     private List<String> extractTopTopics(String text, int limit) {
         try {
@@ -391,70 +596,10 @@ public class ChatController {
         }
     }
 
-    /**
-     * Filters and sorts embedding matches for a course.
-     *
-     * @param matches List of all matches
-     * @param course  The course to match against
-     * @return Filtered and sorted list of matches
-     */
-    private List<EmbeddingMatch<TextSegment>> filterMatches(List<EmbeddingMatch<TextSegment>> matches, CourseInfo course) {
-        String subjectCategory = documentLoader.loadSubjectMapping().getOrDefault(course.subjectCode(), "GENERAL");
-
-        return matches.stream()
-                .filter(match -> {
-                    String text = match.embedded().text();
-                    String matchSubject = extractField(text, "SUBJECT");
-
-                    // Always show mathematics matches
-                    if (subjectCategory.equals("MATHEMATICS")) {
-                        return true;
-                    }
-
-                    // For non-CS courses, only show matches with same category
-                    if (!subjectCategory.equals("COMPUTER_SCIENCE") &&
-                            !subjectCategory.equals("COMPUTER_ENGINEERING")) {
-                        return matchSubject.equalsIgnoreCase(subjectCategory);
-                    }
-
-                    // Original CS course filtering
-                    if (text.contains("INGLESE") && !course.title().contains("INGLESE")) {
-                        return false;
-                    }
-                    return !text.contains("STAGE") || course.title().contains("STAGE");
-                })
-                .sorted(Comparator.comparingDouble(match -> -match.score()))
-                .limit(5)
-                .collect(Collectors.toList());
-    }
-
-    private String formatMatches(List<EmbeddingMatch<TextSegment>> matches, boolean isCS) {
-        StringBuilder response = new StringBuilder();
-        matches.forEach(match -> {
-            String text = match.embedded().text();
-            response.append(String.format(
-                    "- %s (Score: %.2f)%s\n" +
-                            "  ▸ Credits: %s\n" +
-                            "  ▸ Subject: %s\n" +
-                            "  ▸ Content Match: %s\n",
-                    extractField(text, "TITLE"),
-                    match.score(),
-                    isCS ? "" : " [Low Relevance]",
-                    extractField(text, "CREDITS"),
-                    extractField(text, "SUBJECT"),
-                    String.join("; ", extractTopTopics(text, 3))
-            ));
-        });
-        return response.toString();
-    }
+    // ================== Record Definitions ================== //
 
     /**
-     * Record representing course information.
-     *
-     * @param code        Course code
-     * @param title       Course title
-     * @param subjectCode Subject code
-     * @param credits     Number of credits
+     * Represents course information
      */
     record CourseInfo(String code, String title, String subjectCode, int credits) {}
 }
